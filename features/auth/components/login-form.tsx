@@ -72,11 +72,11 @@ export function LoginForm() {
             <Spinner />
           </span>
         ) : null}
-      </button>
+      </button>*/}
 
-      <p className="text-center text-[0.92rem] font-semibold uppercase tracking-[0.08em] text-[#dce6f5]">
-        {t("auth.login.or")}
-      </p>*/}
+      <p className="text-center text-[0.92rem] font-semibold tracking-[0.08em] text-[#dce6f5]">
+        {t("auth.login.welcome")}
+      </p>
 
       <a
         href="/api/auth/linkedin/start"

@@ -35,6 +35,7 @@ export type MessageKey =
   | "auth.login.password"
   | "auth.login.enter"
   | "auth.login.or"
+  | "auth.login.welcome"
   | "auth.login.linkedin"
   | "auth.login.signup"
   | "auth.email.invalid"
@@ -145,6 +146,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.login.password": "Contraseña",
     "auth.login.enter": "Entrar",
     "auth.login.or": "o",
+    "auth.login.welcome": "Welcome to the BCN Office Challenge! Please log in to continue.",
     "auth.login.linkedin": "Iniciar sesión con LinkedIn",
     "auth.login.signup": "¿No tienes cuenta? Regístrate",
     "auth.email.invalid": "Introduce un email válido.",
@@ -278,6 +280,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.login.password": "Password",
     "auth.login.enter": "Enter",
     "auth.login.or": "or",
+    "auth.login.welcome": "Bienvenido al BCN Office Challenge! Por favor, inicia sesión para continuar.",
     "auth.login.linkedin": "Sign in with LinkedIn",
     "auth.login.signup": "Don't have an account? Sign up",
     "auth.email.invalid": "Please enter a valid email.",
