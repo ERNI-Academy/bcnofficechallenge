@@ -33,7 +33,7 @@ export default function HowItWorksPage() {
         <span>{t("common.goBack")}</span>
       </Link>
 
-      <h1 className="sticky top-0 z-10 shrink-0 bg-[#031d3b] py-1 text-left text-3xl font-extrabold tracking-tight">
+      <h1 className="sticky top-0 z-10 shrink-0 bg-[#033470] py-1 text-left text-3xl font-extrabold tracking-tight">
         {t("howItWorks.title")}
       </h1>
 

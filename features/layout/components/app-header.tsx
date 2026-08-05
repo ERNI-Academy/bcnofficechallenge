@@ -201,85 +201,17 @@ export function AppHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between bg-[#031d3b] px-5 py-4">
+      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between bg-[#033470] px-5 py-4">
         <Link href="/welcome" aria-label="Go to welcome">
           <Image
-            src="/logoCodemotion.png"
-            alt="Codemotion logo"
-            width={174}
+            src="/erniLogoWhite.png"
+            alt="ERNI logo"
+            width={100}
             height={38}
             className="h-auto w-auto"
             priority
           />
         </Link>
-        <div className="flex items-center gap-3">
-          {showHeaderLanguageSelector ? (
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setIsLangSelectOpen((current) => !current)}
-                className="flex h-9 w-11 items-center justify-center rounded-md border border-white/30 bg-[#0f3156]"
-                aria-label={t("header.languageSelector")}
-              >
-                <Image
-                  src={currentFlagSrc}
-                  alt={language}
-                  width={24}
-                  height={16}
-                  className="h-4 w-6 object-cover"
-                />
-              </button>
-              {isLangSelectOpen ? (
-                <div className="absolute right-0 top-10 z-30 flex w-[4.2rem] flex-col rounded-md border border-white/20 bg-[#0f3156] p-1 shadow-xl">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setLanguage("es");
-                      setIsLangSelectOpen(false);
-                    }}
-                    className={`rounded p-1 ${language === "es" ? "bg-white/20" : "hover:bg-white/10"}`}
-                  >
-                    <Image
-                      src="/es-flag.png"
-                      alt="es"
-                      width={24}
-                      height={16}
-                      className="mx-auto h-4 w-6 object-cover"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setLanguage("en");
-                      setIsLangSelectOpen(false);
-                    }}
-                    className={`rounded p-1 ${language === "en" ? "bg-white/20" : "hover:bg-white/10"}`}
-                  >
-                    <Image
-                      src="/uk_flag.png"
-                      alt="en"
-                      width={24}
-                      height={16}
-                      className="mx-auto h-4 w-6 object-cover"
-                    />
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          {ready && isAuthenticated ? (
-            <button
-              type="button"
-              onClick={() => setIsDrawerOpen((current) => !current)}
-              aria-label={t("header.openMenu")}
-              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
-            >
-              <span className="block h-0.5 w-6 rounded bg-white" />
-              <span className="block h-0.5 w-6 rounded bg-white" />
-              <span className="block h-0.5 w-6 rounded bg-white" />
-            </button>
-          ) : null}
-        </div>
       </header>
 
       {ready && isAuthenticated ? (

@@ -27,7 +27,7 @@ export function LoginForm() {
 
   return (
     <form className="flex flex-col gap-[0.9rem] px-6" onSubmit={handleSubmit} noValidate>
-      <label className="text-[0.95rem] text-[#d5deed]" htmlFor="email">
+      {/* <label className="text-[0.95rem] text-[#d5deed]" htmlFor="email">
         {t("auth.login.userEmail")}
       </label>
       <input
@@ -76,7 +76,7 @@ export function LoginForm() {
 
       <p className="text-center text-[0.92rem] font-semibold uppercase tracking-[0.08em] text-[#dce6f5]">
         {t("auth.login.or")}
-      </p>
+      </p>*/}
 
       <a
         href="/api/auth/linkedin/start"
@@ -92,9 +92,9 @@ export function LoginForm() {
         </span>
       </a>
 
-      <Link href="/sign-up" className="mt-2 text-center text-[0.95rem] text-[#dce6f5] underline">
+      {/* <Link href="/sign-up" className="mt-2 text-center text-[0.95rem] text-[#dce6f5] underline">
         {t("auth.login.signup")}
-      </Link>
+      </Link> */}
 
       {error ? <p className="m-0 text-[0.9rem] text-[#ff8181]">{error}</p> : null}
     </form>
