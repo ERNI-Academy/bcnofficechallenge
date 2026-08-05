@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import type { LoggedUser } from "@/features/auth/types";
 
-export const USER_SESSION_COOKIE = "codemotion_user_session";
+export const USER_SESSION_COOKIE = "bcnofficechallenge_user_session";
 
 function encodeSession(user: LoggedUser): string {
   return Buffer.from(JSON.stringify(user), "utf8").toString("base64url");

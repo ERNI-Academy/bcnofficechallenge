@@ -1,6 +1,6 @@
 "use client";
 
-export const RAFFLE_SEEN_KEY = "codemotion_raffle_seen";
+export const RAFFLE_SEEN_KEY = "bcnofficechallenge_raffle_seen";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";

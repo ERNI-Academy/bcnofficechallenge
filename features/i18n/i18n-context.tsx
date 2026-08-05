@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { AppLanguage, MessageKey } from "./messages";
 import { messages } from "./messages";
 
-const APP_LANG_STORAGE_KEY = "codemotion_app_lang";
+const APP_LANG_STORAGE_KEY = "bcnofficechallenge_app_lang";
 
 type I18nContextValue = {
   language: AppLanguage;

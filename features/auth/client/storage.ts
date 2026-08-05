@@ -1,6 +1,6 @@
 import type { LoggedUser } from "@/features/auth/types";
 
-export const USER_STORAGE_KEY = "codemotion_user";
+export const USER_STORAGE_KEY = "bcnofficechallenge_user";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";
