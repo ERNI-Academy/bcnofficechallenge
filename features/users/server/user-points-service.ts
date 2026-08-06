@@ -7,12 +7,13 @@ export type UserPointsResult =
   | { ok: false; status: number; error: string };
 
 export async function fetchUserPointsFromBackend(
-  userId: string,
+  accessToken: string,
 ): Promise<UserPointsResult> {
-  const response = await fetchBackend(buildBackendUrl(`/users/${userId}/points`), {
+  const response = await fetchBackend(buildBackendUrl("/users/me/points"), {
     method: "GET",
     headers: {
       Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
     cache: "no-store",
   });

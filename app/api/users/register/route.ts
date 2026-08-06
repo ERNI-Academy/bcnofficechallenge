@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { registerWithBackend } from "@/features/auth/server/register-service";
-import { buildUserSessionCookie } from "@/features/auth/server/session";
+import { buildAccessTokenCookie } from "@/features/auth/server/session";
+import { hasCompanyEmailDomain } from "@/features/auth/constants";
 import type { RegisterPayload } from "@/features/auth/types";
 
 export async function POST(request: Request) {
@@ -16,13 +17,12 @@ export async function POST(request: Request) {
   }
 
   const email = body.email?.trim() ?? "";
-  const password = body.password?.trim() ?? "";
+  const password = body.password ?? "";
   const fullName = body.fullName?.trim() ?? "";
   const companyName = body.companyName?.trim() ?? "";
   const jobTitle = body.jobTitle?.trim() ?? "";
-  const linkedIn = body.linkedIn?.trim() ?? "";
 
-  if (!email || !password || !fullName || !companyName || !jobTitle) {
+  if (!hasCompanyEmailDomain(email) || !password || !fullName || !companyName || !jobTitle) {
     return NextResponse.json(
       { title: "All required fields must be completed" },
       { status: 400 },
@@ -36,7 +36,6 @@ export async function POST(request: Request) {
       fullName,
       companyName,
       jobTitle,
-      linkedIn: linkedIn || undefined,
     });
 
     if (!result.ok) {
@@ -46,9 +45,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const sessionCookie = buildUserSessionCookie(result.user);
+    const sessionCookie = buildAccessTokenCookie(
+      result.session.accessToken,
+      result.session.expiresAt,
+    );
 
-    const response = NextResponse.json(result.user, { status: 200 });
+    const response = NextResponse.json(result.session.user, { status: 200 });
     response.cookies.set(
       sessionCookie.name,
       sessionCookie.value,

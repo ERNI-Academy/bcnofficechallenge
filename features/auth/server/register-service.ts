@@ -2,12 +2,12 @@ import { buildBackendUrl } from "@/lib/server/env";
 import { fetchBackend } from "@/lib/server/http/fetch-backend";
 import type {
   ApiValidationErrorResponse,
-  LoggedUser,
+  AuthenticatedSession,
   RegisterPayload,
 } from "@/features/auth/types";
 
 export type RegisterResult =
-  | { ok: true; user: LoggedUser }
+  | { ok: true; session: AuthenticatedSession }
   | { ok: false; status: number; error: string };
 
 export async function registerWithBackend(
@@ -27,7 +27,7 @@ export async function registerWithBackend(
     let errorMessage = "Register failed";
     try {
       const apiError = (await response.json()) as ApiValidationErrorResponse;
-      errorMessage = apiError.title ?? errorMessage;
+      errorMessage = apiError.title ?? apiError.error ?? errorMessage;
     } catch {
       // Keep fallback when backend response is empty or invalid.
     }
@@ -39,7 +39,7 @@ export async function registerWithBackend(
     };
   }
 
-  const user = (await response.json()) as LoggedUser;
-  return { ok: true, user };
+  const session = (await response.json()) as AuthenticatedSession;
+  return { ok: true, session };
 }
 

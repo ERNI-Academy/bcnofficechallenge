@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { fetchUserPointsFromBackend } from "@/features/users/server/user-points-service";
+import { getAccessToken } from "@/features/auth/server/session";
 
 type RouteParams = {
   params: Promise<{
@@ -8,20 +9,19 @@ type RouteParams = {
 };
 
 export async function GET(_: Request, { params }: RouteParams) {
-  const resolvedParams = await params;
-  const userId = resolvedParams.id?.trim();
-
-  if (!userId) {
+  await params;
+  const accessToken = await getAccessToken();
+  if (!accessToken) {
     return NextResponse.json(
       {
-        title: "Invalid user id",
+        title: "No active session",
       },
-      { status: 400 },
+      { status: 401 },
     );
   }
 
   try {
-    const result = await fetchUserPointsFromBackend(userId);
+    const result = await fetchUserPointsFromBackend(accessToken);
     if (!result.ok) {
       return NextResponse.json(
         {

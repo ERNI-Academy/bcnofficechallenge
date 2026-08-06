@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthSession } from "@/features/auth/client/auth-session-context";
-import type { AppLanguage } from "@/features/i18n/messages";
 import { useI18n } from "@/features/i18n/i18n-context";
 import { getUserPoints } from "@/features/users/client/user-points-api";
 
@@ -21,9 +20,8 @@ export function AppHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const { user, ready, isAuthenticated, logout } = useAuthSession();
-  const { language, setLanguage, t } = useI18n();
+  const { t } = useI18n();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isLangSelectOpen, setIsLangSelectOpen] = useState(false);
   const [points, setPoints] = useState<number | null>(user?.points ?? null);
   const [pointsLoading, setPointsLoading] = useState(false);
   const [pointsError, setPointsError] = useState<string | null>(null);
@@ -36,7 +34,6 @@ export function AppHeader() {
 
   useEffect(() => {
     setIsDrawerOpen(false);
-    setIsLangSelectOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -176,19 +173,7 @@ export function AppHeader() {
       : installPlatform === "android"
         ? t("header.installAppAndroid")
         : t("header.installApp");
-  const showHeaderLanguageSelector =
-    pathname === "/" || pathname === "/sign-up";
-
-  const oppositeLanguage: AppLanguage = language === "es" ? "en" : "es";
-  const oppositeLabel =
-    oppositeLanguage === "en"
-      ? t("header.changeToEnglish")
-      : t("header.changeToSpanish");
-  const currentFlagSrc = language === "es" ? "/es-flag.png" : "/uk_flag.png";
-  const oppositeFlagSrc =
-    oppositeLanguage === "es" ? "/es-flag.png" : "/uk_flag.png";
-
-  const displayName = user?.fullName?.trim() || user?.name?.trim() || t("header.userDefault");
+  const displayName = user?.fullName?.trim() || t("header.userDefault");
 
   const nameSizeClass =
     displayName.length <= 16
@@ -212,6 +197,21 @@ export function AppHeader() {
             priority
           />
         </Link>
+        {ready && isAuthenticated ? (
+          <button
+            type="button"
+            onClick={() => setIsDrawerOpen(true)}
+            aria-label={t("header.openMenu")}
+            className="flex h-10 w-10 items-center justify-center rounded-md text-white"
+          >
+            <span className="sr-only">{t("header.openMenu")}</span>
+            <span aria-hidden="true" className="flex flex-col gap-1.5">
+              <span className="h-0.5 w-6 rounded bg-white" />
+              <span className="h-0.5 w-6 rounded bg-white" />
+              <span className="h-0.5 w-6 rounded bg-white" />
+            </span>
+          </button>
+        ) : null}
       </header>
 
       {ready && isAuthenticated ? (
@@ -269,20 +269,6 @@ export function AppHeader() {
                 className="text-left underline underline-offset-4"
               >
                 {t("header.logout")}
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage(oppositeLanguage)}
-                className="mt-1 flex items-center gap-2 text-left"
-              >
-                <Image
-                  src={oppositeFlagSrc}
-                  alt={oppositeLanguage}
-                  width={18}
-                  height={12}
-                  className="h-3 w-[1.15rem] object-cover"
-                />
-                <span className="underline underline-offset-4">{oppositeLabel}</span>
               </button>
             </nav>
 

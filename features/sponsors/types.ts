@@ -4,7 +4,6 @@ export type Sponsor = {
   description: string;
   url: string;
   imageUrl: string;
-  pointsValue: number;
 };
 
 export type SponsorApiError = {

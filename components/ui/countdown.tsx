@@ -38,42 +38,31 @@ export function Countdown({
   className,
   endedText,
 }: CountdownProps) {
-  const [mounted, setMounted] = useState(false);
-  const [remaining, setRemaining] = useState<Remaining>(() =>
-    getRemaining(targetDateIso),
-  );
+  const [remaining, setRemaining] = useState<Remaining | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const update = () => setRemaining(getRemaining(targetDateIso));
+    const initialTimer = window.setTimeout(update, 0);
 
-  useEffect(() => {
-    if (!mounted) {
-      return;
-    }
-
-    const timer = window.setInterval(() => {
-      setRemaining(getRemaining(targetDateIso));
-    }, 1000);
+    const timer = window.setInterval(update, 1000);
 
     return () => {
+      window.clearTimeout(initialTimer);
       window.clearInterval(timer);
     };
-  }, [mounted, targetDateIso]);
+  }, [targetDateIso]);
 
   const text = useMemo(
     () =>
-      `${remaining.days}d ${formatUnit(remaining.hours)}h ${formatUnit(
+      remaining === null
+        ? "--d --h --m --s"
+        : `${remaining.days}d ${formatUnit(remaining.hours)}h ${formatUnit(
         remaining.minutes,
       )}m ${formatUnit(remaining.seconds)}s`,
-    [remaining.days, remaining.hours, remaining.minutes, remaining.seconds],
+    [remaining],
   );
 
-  if (!mounted) {
-    return <span className={className}>--d --h --m --s</span>;
-  }
-
-  if (remaining.totalMs <= 0 && endedText) {
+  if (remaining !== null && remaining.totalMs <= 0 && endedText) {
     return <span className={className}>{endedText}</span>;
   }
 

@@ -10,14 +10,13 @@ import { useSponsors } from "@/features/sponsors/hooks/use-sponsors";
 
 export default function WelcomePage() {
   const { t } = useI18n();
-  const { user } = useAuthSession();
+  const { isAuthenticated } = useAuthSession();
   const { items, loading, error } = useSponsors();
-  const userId = user?.id;
   const {
     scannedSponsorIds,
     loading: scansLoading,
     error: scansError,
-  } = useUserScans(userId);
+  } = useUserScans(isAuthenticated);
 
   if (loading || scansLoading) {
     return (
@@ -76,11 +75,20 @@ export default function WelcomePage() {
               />
             ) : null}
             <div className="flex h-[72%] items-center justify-center rounded-lg bg-white p-2">
-              <img
-                src={sponsor.imageUrl}
-                alt={sponsor.name}
-                className="max-h-full max-w-full object-contain"
-              />
+              {sponsor.imageUrl ? (
+                <Image
+                  src={sponsor.imageUrl}
+                  alt={sponsor.name}
+                  width={160}
+                  height={160}
+                  unoptimized
+                  className="max-h-full max-w-full object-contain"
+                />
+              ) : (
+                <span className="text-5xl font-black text-[#033470]">
+                  {sponsor.name.slice(0, 1).toUpperCase()}
+                </span>
+              )}
             </div>
             <p
               className="mt-3 w-full min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-center text-sm font-semibold text-white"

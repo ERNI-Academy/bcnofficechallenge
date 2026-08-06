@@ -5,26 +5,25 @@ import { FormEvent } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { useI18n } from "@/features/i18n/i18n-context";
 import { useRegisterForm } from "@/features/auth/hooks/use-register-form";
+import { EMAIL_DOMAIN } from "@/features/auth/constants";
 
 export function RegisterForm() {
   const {
-    email,
+    username,
     password,
     fullName,
     companyName,
     jobTitle,
-    linkedIn,
     agreedTerms,
     emailIsValid,
     canSubmit,
     submitting,
     error,
-    setEmail,
+    setUsername,
     setPassword,
     setFullName,
     setCompanyName,
     setJobTitle,
-    setLinkedIn,
     setAgreedTerms,
     submit,
   } = useRegisterForm();
@@ -37,17 +36,23 @@ export function RegisterForm() {
 
   return (
     <form className="flex flex-col gap-[0.9rem] px-6" onSubmit={handleSubmit} noValidate>
-      <input
-        id="email"
-        type="email"
-        className="h-[2.9rem] w-full rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156] px-[0.85rem] text-white placeholder:text-[#adbacd]"
-        placeholder={t("auth.register.email")}
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        autoComplete="email"
-        required
-      />
-      {email.length > 0 && !emailIsValid ? (
+      <div className="flex h-[2.9rem] overflow-hidden rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156]">
+        <input
+          id="email"
+          type="text"
+          className="min-w-0 flex-1 bg-transparent px-[0.85rem] text-white outline-none placeholder:text-[#adbacd]"
+          placeholder="username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value.replace(/@.*$/, ""))}
+          autoComplete="username"
+          inputMode="email"
+          required
+        />
+        <span className="flex items-center border-l border-[#6f839d] bg-[#092746] px-3 text-sm text-[#d5deed]">
+          {EMAIL_DOMAIN}
+        </span>
+      </div>
+      {username.length > 0 && !emailIsValid ? (
         <p className="m-0 text-[0.9rem] text-[#ff8181]">{t("auth.email.invalid")}</p>
       ) : null}
       <input
@@ -88,15 +93,6 @@ export function RegisterForm() {
         onChange={(event) => setJobTitle(event.target.value)}
         required
       />
-      <input
-        id="linkedIn"
-        type="text"
-        className="h-[2.9rem] w-full rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156] px-[0.85rem] text-white placeholder:text-[#adbacd]"
-        placeholder={t("auth.register.linkedInOptional")}
-        value={linkedIn}
-        onChange={(event) => setLinkedIn(event.target.value)}
-      />
-
       <label htmlFor="terms" className="mt-1 flex items-start gap-2 text-[0.92rem] text-[#dce6f5]">
         <input
           id="terms"

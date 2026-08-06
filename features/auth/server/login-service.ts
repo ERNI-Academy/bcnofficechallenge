@@ -1,13 +1,13 @@
 import { buildBackendUrl } from "@/lib/server/env";
 import { fetchBackend } from "@/lib/server/http/fetch-backend";
 import type {
-  LoggedUser,
+  AuthenticatedSession,
   LoginCredentials,
   LoginErrorResponse,
 } from "@/features/auth/types";
 
 export type LoginResult =
-  | { ok: true; user: LoggedUser }
+  | { ok: true; session: AuthenticatedSession }
   | { ok: false; status: number; error: string };
 
 export async function loginWithBackend(
@@ -39,7 +39,7 @@ export async function loginWithBackend(
     };
   }
 
-  const user = (await response.json()) as LoggedUser;
-  return { ok: true, user };
+  const session = (await response.json()) as AuthenticatedSession;
+  return { ok: true, session };
 }
 

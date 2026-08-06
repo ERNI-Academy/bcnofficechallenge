@@ -3,9 +3,8 @@
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthSession } from "@/features/auth/client/auth-session-context";
-import { hasSeenRaffle } from "@/features/raffle/client/storage";
 
-const PUBLIC_PATHS = new Set(["/", "/sign-up", "/auth/linkedin/success"]);
+const PUBLIC_PATHS = new Set(["/", "/sign-up"]);
 
 type AuthRouteGuardProps = {
   children: React.ReactNode;
@@ -33,14 +32,6 @@ export function AuthRouteGuard({ children }: AuthRouteGuardProps) {
       return;
     }
 
-    if (
-      isAuthenticated &&
-      pathname !== "/raffle" &&
-      pathname !== "/auth/linkedin/success" &&
-      !hasSeenRaffle()
-    ) {
-      router.replace("/raffle");
-    }
   }, [ready, isAuthenticated, pathname, router]);
 
   if (!ready) {
@@ -53,15 +44,6 @@ export function AuthRouteGuard({ children }: AuthRouteGuardProps) {
   }
 
   if (isAuthenticated && pathname === "/") {
-    return null;
-  }
-
-  if (
-    isAuthenticated &&
-    pathname !== "/raffle" &&
-    pathname !== "/auth/linkedin/success" &&
-    !hasSeenRaffle()
-  ) {
     return null;
   }
 

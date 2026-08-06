@@ -1,11 +1,45 @@
-export type ScanRecord = {
-  sponsorId: string;
-  scannedAt: string;
+export type QrPayload = {
+  v: 1;
+  token: string;
 };
 
-export type CreateScanPayload = {
-  userId: string;
-  qrId: string;
+export type ScanRecord = {
+  sponsorId: string;
+  completedAt: string;
+  pointsAwarded: number;
+  maximumPoints: number;
+};
+
+export type PreparedQuestion = {
+  id: string;
+  text: string;
+};
+
+export type PreparedQuiz = {
+  roomId: string;
+  roomName: string;
+  questions: PreparedQuestion[];
+};
+
+export type PrepareQuizPayload = {
+  roomId: string;
+  qr: QrPayload;
+};
+
+export type QuizAnswer = {
+  questionId: string;
+  answer: boolean;
+};
+
+export type CompleteQuizPayload = PrepareQuizPayload & {
+  answers: QuizAnswer[];
+};
+
+export type QuizResult = {
+  pointsEarned: number;
+  maximumPoints: number;
+  totalPoints: number;
+  completedAt: string;
 };
 
 export type ScanApiError = {
@@ -14,7 +48,7 @@ export type ScanApiError = {
   status?: number;
   errors?: Record<string, string[]>;
   traceId?: string;
+  errorCode?: string;
   error?: string;
   message?: string;
 };
-

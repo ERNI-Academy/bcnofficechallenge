@@ -9,7 +9,12 @@ export type RegisterPayload = {
   fullName: string;
   companyName: string;
   jobTitle: string;
-  linkedIn?: string;
+};
+
+export type AuthenticatedSession = {
+  user: LoggedUser;
+  accessToken: string;
+  expiresAt: string;
 };
 
 export type LoginErrorResponse = {
@@ -22,17 +27,16 @@ export type ApiValidationErrorResponse = {
   status?: number;
   errors?: Record<string, string[]>;
   traceId?: string;
+  error?: string;
 };
 
 export type LoggedUser = {
   id: string;
-  name: string;
-  fullName?: string;
+  fullName: string;
   email: string;
-  companyName: string;
-  jobTitle: string;
+  companyName: string | null;
+  jobTitle: string | null;
   points: number;
-  pointsTimestamp: string;
-  linkedIn: string;
+  pointsTimestamp: string | null;
 };
 

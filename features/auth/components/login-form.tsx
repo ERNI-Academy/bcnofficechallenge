@@ -5,16 +5,17 @@ import { FormEvent } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { useI18n } from "@/features/i18n/i18n-context";
 import { useLoginForm } from "@/features/auth/hooks/use-login-form";
+import { EMAIL_DOMAIN } from "@/features/auth/constants";
 
 export function LoginForm() {
   const {
-    email,
+    username,
     password,
     error,
     submitting,
     emailIsValid,
     canSubmit,
-    setEmail,
+    setUsername,
     setPassword,
     submit,
   } = useLoginForm();
@@ -27,21 +28,30 @@ export function LoginForm() {
 
   return (
     <form className="flex flex-col gap-[0.9rem] px-6" onSubmit={handleSubmit} noValidate>
-      {/* <label className="text-[0.95rem] text-[#d5deed]" htmlFor="email">
+      <p className="text-center text-[0.92rem] font-semibold tracking-[0.08em] text-[#dce6f5]">
+        {t("auth.login.welcome")}
+      </p>
+      <label className="text-[0.95rem] text-[#d5deed]" htmlFor="email">
         {t("auth.login.userEmail")}
       </label>
-      <input
-        id="email"
-        type="email"
-        className="h-[2.9rem] w-full rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156] px-[0.85rem] text-white placeholder:text-[#adbacd]"
-        placeholder={t("auth.register.email")}
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        autoComplete="email"
-        required
-      />
+      <div className="flex h-[2.9rem] overflow-hidden rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156]">
+        <input
+          id="email"
+          type="text"
+          className="min-w-0 flex-1 bg-transparent px-[0.85rem] text-white outline-none placeholder:text-[#adbacd]"
+          placeholder="username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value.replace(/@.*$/, ""))}
+          autoComplete="username"
+          inputMode="email"
+          required
+        />
+        <span className="flex items-center border-l border-[#6f839d] bg-[#092746] px-3 text-sm text-[#d5deed]">
+          {EMAIL_DOMAIN}
+        </span>
+      </div>
 
-      {email.length > 0 && !emailIsValid ? (
+      {username.length > 0 && !emailIsValid ? (
         <p className="m-0 text-[0.9rem] text-[#ff8181]">{t("auth.email.invalid")}</p>
       ) : null}
 
@@ -72,29 +82,11 @@ export function LoginForm() {
             <Spinner />
           </span>
         ) : null}
-      </button>*/}
+      </button>
 
-      <p className="text-center text-[0.92rem] font-semibold tracking-[0.08em] text-[#dce6f5]">
-        {t("auth.login.welcome")}
-      </p>
-
-      <a
-        href="/api/auth/linkedin/start"
-        className="mt-1 flex h-[2.9rem] items-center justify-center rounded-[0.55rem] bg-[#127fb3] px-2 text-white"
-      >
-        <img
-          src="/LinkedIn_icon.svg.png"
-          alt="LinkedIn"
-          className="h-9 w-9 rounded-[0.4rem] bg-white object-contain p-1"
-        />
-        <span className="ml-3 text-[1.02rem] font-semibold tracking-[0.01em]">
-          {t("auth.login.linkedin")}
-        </span>
-      </a>
-
-      {/* <Link href="/sign-up" className="mt-2 text-center text-[0.95rem] text-[#dce6f5] underline">
+      <Link href="/sign-up" className="mt-2 text-center text-[0.95rem] text-[#dce6f5] underline">
         {t("auth.login.signup")}
-      </Link> */}
+      </Link>
 
       {error ? <p className="m-0 text-[0.9rem] text-[#ff8181]">{error}</p> : null}
     </form>

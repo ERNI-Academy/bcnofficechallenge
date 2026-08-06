@@ -9,7 +9,6 @@ import {
   useState,
 } from "react";
 import type { LoggedUser } from "@/features/auth/types";
-import { clearStoredUser, getStoredUser, setStoredUser } from "./storage";
 
 type AuthSessionContextValue = {
   user: LoggedUser | null;
@@ -21,33 +20,42 @@ type AuthSessionContextValue = {
 
 const AuthSessionContext = createContext<AuthSessionContextValue | null>(null);
 
-type AuthSessionProviderProps = {
-  children: React.ReactNode;
-};
-
-export function AuthSessionProvider({ children }: AuthSessionProviderProps) {
+export function AuthSessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<LoggedUser | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setUser(getStoredUser());
-    setReady(true);
+    let active = true;
+    void fetch("/api/users/session", { cache: "no-store" })
+      .then(async (response) =>
+        response.ok ? ((await response.json()) as LoggedUser) : null,
+      )
+      .then((sessionUser) => {
+        if (active) setUser(sessionUser);
+      })
+      .catch(() => {
+        if (active) setUser(null);
+      })
+      .finally(() => {
+        if (active) setReady(true);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   const setAuthenticatedUser = useCallback((nextUser: LoggedUser) => {
-    setStoredUser(nextUser);
     setUser(nextUser);
+    setReady(true);
   }, []);
 
   const logout = useCallback(async () => {
-    clearStoredUser();
     setUser(null);
     try {
-      await fetch("/api/users/logout", {
-        method: "POST",
-      });
+      await fetch("/api/users/logout", { method: "POST" });
     } catch {
-      // Logout should still succeed client-side even if API cleanup fails.
+      // Local logout still completes if the request fails.
     }
   }, []);
 
@@ -76,4 +84,3 @@ export function useAuthSession() {
   }
   return context;
 }
-

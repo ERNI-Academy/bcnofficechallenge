@@ -1,57 +1,38 @@
 import { cookies } from "next/headers";
-import type { LoggedUser } from "@/features/auth/types";
 
-export const USER_SESSION_COOKIE = "bcnofficechallenge_user_session";
+export const ACCESS_TOKEN_COOKIE = "bcnofficechallenge_access_token";
 
-function encodeSession(user: LoggedUser): string {
-  return Buffer.from(JSON.stringify(user), "utf8").toString("base64url");
-}
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path: "/",
+};
 
-function decodeSession(encoded: string): LoggedUser | null {
-  try {
-    const raw = Buffer.from(encoded, "base64url").toString("utf8");
-    return JSON.parse(raw) as LoggedUser;
-  } catch {
-    return null;
-  }
-}
-
-export function buildUserSessionCookie(user: LoggedUser) {
+export function buildAccessTokenCookie(accessToken: string, expiresAt: string) {
+  const expires = new Date(expiresAt);
   return {
-    name: USER_SESSION_COOKIE,
-    value: encodeSession(user),
+    name: ACCESS_TOKEN_COOKIE,
+    value: accessToken,
     options: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax" as const,
-      path: "/",
-      maxAge: 60 * 60 * 8,
+      ...cookieOptions,
+      expires,
     },
   };
 }
 
-export function buildClearUserSessionCookie() {
+export function buildClearAccessTokenCookie() {
   return {
-    name: USER_SESSION_COOKIE,
+    name: ACCESS_TOKEN_COOKIE,
     value: "",
     options: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax" as const,
-      path: "/",
+      ...cookieOptions,
       maxAge: 0,
     },
   };
 }
 
-export async function getLoggedUser(): Promise<LoggedUser | null> {
+export async function getAccessToken(): Promise<string | null> {
   const cookieStore = await cookies();
-  const encoded = cookieStore.get(USER_SESSION_COOKIE)?.value;
-
-  if (!encoded) {
-    return null;
-  }
-
-  return decodeSession(encoded);
+  return cookieStore.get(ACCESS_TOKEN_COOKIE)?.value ?? null;
 }
-
