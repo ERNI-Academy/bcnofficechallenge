@@ -5,6 +5,7 @@ export type MessageKey =
   | "header.howItWorks"
   | "header.sponsors"
   | "header.leaderboard"
+  | "header.raffleConditions"
   | "header.logout"
   | "header.pointsUnit"
   | "header.userDefault"
@@ -112,6 +113,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "header.howItWorks": "¿Cómo funciona?",
     "header.sponsors": "Patrocinadores",
     "header.leaderboard": "Clasificación",
+    "header.raffleConditions": "Condiciones del sorteo",
     "header.logout": "Logout",
     "header.pointsUnit": "puntos",
     "header.userDefault": "Usuario",
@@ -246,6 +248,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "header.howItWorks": "How does it work?",
     "header.sponsors": "Sponsors",
     "header.leaderboard": "Leaderboard",
+    "header.raffleConditions": "Raffle conditions",
     "header.logout": "Logout",
     "header.pointsUnit": "points",
     "header.userDefault": "User",

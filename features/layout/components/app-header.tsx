@@ -265,6 +265,13 @@ export function AppHeader() {
               </button>
               <button
                 type="button"
+                onClick={() => goTo("/raffle")}
+                className="text-left underline underline-offset-4"
+              >
+                {t("header.raffleConditions")}
+              </button>
+              <button
+                type="button"
                 onClick={handleLogout}
                 className="text-left underline underline-offset-4"
               >
