@@ -282,7 +282,7 @@ export function AppHeader() {
             <section className="mt-auto pt-6 text-left">
               <button
                 type="button"
-                onClick={() => goTo("/how-it-works")}
+                onClick={() => goTo("/raffle")}
                 className="mb-5 flex items-center gap-2 text-left"
               >
                 <Image

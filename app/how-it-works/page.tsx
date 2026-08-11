@@ -1,5 +1,8 @@
 "use client";
 
+import { Countdown } from "@/components/ui/countdown";
+import { useI18n } from "@/features/i18n/i18n-context";
+import { RAFFLE_TARGET_ISO } from "@/features/raffle/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,6 +15,7 @@ const steps = [
 ];
 
 export default function HowItWorksPage() {
+  const { t } = useI18n();
   return (
     <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
       <Link
@@ -25,15 +29,27 @@ export default function HowItWorksPage() {
       <h1 className="shrink-0 py-1 text-left text-3xl font-extrabold tracking-tight">
         How it works
       </h1>
-
       <section className="mt-3 min-h-0 flex-1 overflow-y-auto pb-4 pr-1 text-sm leading-6 text-white/95">
+        <div className="mx-auto flex w-full max-w-[16rem] flex-col items-center gap-5">
+          <p className="text-center text-sm font-semibold text-white/90">
+            {t("raffle.hurryUp")}
+          </p>
+
+          <p className="text-center text-2xl font-extrabold text-[#ffc24d]">
+            <Countdown
+              targetDateIso={RAFFLE_TARGET_ISO}
+              endedText={t("raffle.ended")}
+            />
+          </p>
+        </div>
         <div className="mb-5 flex justify-center">
           <Image
-            src="/erniLogoWhite.png"
-            alt="ERNI"
-            width={150}
-            height={58}
-            className="h-auto w-[9rem]"
+            src="/ERNIMatrix.png"
+            alt="Codemotion Bear"
+            width={180}
+            height={180}
+            className="h-auto w-auto object-contain"
+            priority
           />
         </div>
         <p>

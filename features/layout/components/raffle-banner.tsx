@@ -20,7 +20,7 @@ export function RaffleBanner() {
     <div className="fixed inset-x-0 top-[5.2rem] z-[19] border-y border-white/15 bg-[#0f3156] px-3 py-2">
       <div className="mx-auto flex w-full max-w-[30rem] items-center gap-2">
         <Image
-          src="/codemotionBear.png"
+          src="/ERNIMatrix.png"
           alt="Raffle"
           width={24}
           height={24}
