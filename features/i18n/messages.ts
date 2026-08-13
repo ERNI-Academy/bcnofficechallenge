@@ -161,7 +161,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.register.register": "Registrarse",
     "auth.register.agree": "Acepto los",
     "auth.register.terms": "términos y condiciones",
-    "welcome.title": "Patrocinadores",
+    "welcome.title": "Espacios",
     "leaderboard.title": "Clasificación",
     "common.emptyList": "Lista vacía",
     "common.unexpectedError": "Error inesperado",
@@ -246,7 +246,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
   en: {
     "header.menu": "Menu",
     "header.howItWorks": "How does it work?",
-    "header.sponsors": "Sponsors",
+    "header.sponsors": "Rooms",
     "header.leaderboard": "Leaderboard",
     "header.raffleConditions": "Raffle conditions",
     "header.logout": "Logout",
