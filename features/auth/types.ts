@@ -7,8 +7,6 @@ export type RegisterPayload = {
   email: string;
   password: string;
   fullName: string;
-  companyName: string;
-  jobTitle: string;
 };
 
 export type AuthenticatedSession = {

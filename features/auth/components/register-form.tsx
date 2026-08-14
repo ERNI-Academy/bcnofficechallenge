@@ -12,8 +12,6 @@ export function RegisterForm() {
     username,
     password,
     fullName,
-    companyName,
-    jobTitle,
     agreedTerms,
     emailIsValid,
     canSubmit,
@@ -22,8 +20,6 @@ export function RegisterForm() {
     setUsername,
     setPassword,
     setFullName,
-    setCompanyName,
-    setJobTitle,
     setAgreedTerms,
     submit,
   } = useRegisterForm();
@@ -73,24 +69,6 @@ export function RegisterForm() {
         value={fullName}
         onChange={(event) => setFullName(event.target.value)}
         autoComplete="name"
-        required
-      />
-      <input
-        id="companyName"
-        type="text"
-        className="h-[2.9rem] w-full rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156] px-[0.85rem] text-white placeholder:text-[#adbacd]"
-        placeholder={t("auth.register.companyName")}
-        value={companyName}
-        onChange={(event) => setCompanyName(event.target.value)}
-        required
-      />
-      <input
-        id="jobTitle"
-        type="text"
-        className="h-[2.9rem] w-full rounded-[0.55rem] border border-[#6f839d] bg-[#0f3156] px-[0.85rem] text-white placeholder:text-[#adbacd]"
-        placeholder={t("auth.register.jobTitle")}
-        value={jobTitle}
-        onChange={(event) => setJobTitle(event.target.value)}
         required
       />
       <label htmlFor="terms" className="mt-1 flex items-start gap-2 text-[0.92rem] text-[#dce6f5]">

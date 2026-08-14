@@ -17,8 +17,6 @@ export function useRegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [jobTitle, setJobTitle] = useState("");
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -29,9 +27,7 @@ export function useRegisterForm() {
   );
   const hasRequiredFields =
     password.length > 0 &&
-    fullName.trim().length > 0 &&
-    companyName.trim().length > 0 &&
-    jobTitle.trim().length > 0;
+    fullName.trim().length > 0;
   const canSubmit =
     hasRequiredFields && emailIsValid && agreedTerms && !submitting;
 
@@ -45,8 +41,6 @@ export function useRegisterForm() {
         email: buildCompanyEmail(username),
         password,
         fullName: fullName.trim(),
-        companyName: companyName.trim(),
-        jobTitle: jobTitle.trim(),
       });
       setAuthenticatedUser(user);
       router.push("/welcome");
@@ -65,8 +59,6 @@ export function useRegisterForm() {
     username,
     password,
     fullName,
-    companyName,
-    jobTitle,
     agreedTerms,
     emailIsValid,
     canSubmit,
@@ -75,8 +67,6 @@ export function useRegisterForm() {
     setUsername,
     setPassword,
     setFullName,
-    setCompanyName,
-    setJobTitle,
     setAgreedTerms,
     submit,
   };

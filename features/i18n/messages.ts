@@ -43,8 +43,6 @@ export type MessageKey =
   | "auth.register.email"
   | "auth.register.password"
   | "auth.register.fullName"
-  | "auth.register.companyName"
-  | "auth.register.jobTitle"
   | "auth.register.linkedInOptional"
   | "auth.register.register"
   | "auth.register.agree"
@@ -155,8 +153,6 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.register.email": "Email",
     "auth.register.password": "Contraseña",
     "auth.register.fullName": "Nombre completo",
-    "auth.register.companyName": "Empresa",
-    "auth.register.jobTitle": "Puesto",
     "auth.register.linkedInOptional": "LinkedIn (opcional)",
     "auth.register.register": "Registrarse",
     "auth.register.agree": "Acepto los",
@@ -290,8 +286,6 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.register.email": "Email",
     "auth.register.password": "Password",
     "auth.register.fullName": "Full name",
-    "auth.register.companyName": "Company name",
-    "auth.register.jobTitle": "Job title",
     "auth.register.linkedInOptional": "LinkedIn (optional)",
     "auth.register.register": "Register",
     "auth.register.agree": "Agree the",

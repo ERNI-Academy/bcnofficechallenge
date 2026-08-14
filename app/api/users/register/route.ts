@@ -19,10 +19,8 @@ export async function POST(request: Request) {
   const email = body.email?.trim() ?? "";
   const password = body.password ?? "";
   const fullName = body.fullName?.trim() ?? "";
-  const companyName = body.companyName?.trim() ?? "";
-  const jobTitle = body.jobTitle?.trim() ?? "";
 
-  if (!hasCompanyEmailDomain(email) || !password || !fullName || !companyName || !jobTitle) {
+  if (!hasCompanyEmailDomain(email) || !password || !fullName) {
     return NextResponse.json(
       { title: "All required fields must be completed" },
       { status: 400 },
@@ -34,8 +32,6 @@ export async function POST(request: Request) {
       email,
       password,
       fullName,
-      companyName,
-      jobTitle,
     });
 
     if (!result.ok) {
