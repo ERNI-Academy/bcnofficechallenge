@@ -17,7 +17,6 @@ export function useRegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [agreedTerms, setAgreedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -28,8 +27,7 @@ export function useRegisterForm() {
   const hasRequiredFields =
     password.length > 0 &&
     fullName.trim().length > 0;
-  const canSubmit =
-    hasRequiredFields && emailIsValid && agreedTerms && !submitting;
+  const canSubmit = hasRequiredFields && emailIsValid && !submitting;
 
   async function submit() {
     if (!canSubmit) return;
@@ -59,7 +57,6 @@ export function useRegisterForm() {
     username,
     password,
     fullName,
-    agreedTerms,
     emailIsValid,
     canSubmit,
     submitting,
@@ -67,7 +64,6 @@ export function useRegisterForm() {
     setUsername,
     setPassword,
     setFullName,
-    setAgreedTerms,
     submit,
   };
 }

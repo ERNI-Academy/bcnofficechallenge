@@ -25,7 +25,11 @@ export async function getUserScans(): Promise<ScanRecord[]> {
   if (!response.ok) {
     throw new Error(await readError(response, "Could not load completed rooms"));
   }
-  return (await response.json()) as ScanRecord[];
+  const scans = (await response.json()) as ScanRecord[];
+  return scans.map((scan) => ({
+    ...scan,
+    answerResults: scan.answerResults ?? [],
+  }));
 }
 
 export async function prepareQuiz(
@@ -53,5 +57,9 @@ export async function completeQuiz(
   if (!response.ok) {
     throw new Error(await readError(response, "Could not submit the answers"));
   }
-  return (await response.json()) as QuizResult;
+  const result = (await response.json()) as QuizResult;
+  return {
+    ...result,
+    answerResults: result.answerResults ?? [],
+  };
 }

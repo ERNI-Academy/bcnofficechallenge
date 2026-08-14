@@ -8,6 +8,13 @@ export type ScanRecord = {
   completedAt: string;
   pointsAwarded: number;
   maximumPoints: number;
+  answerResults: QuizAnswerResult[];
+};
+
+export type QuizAnswerResult = {
+  questionId: string;
+  questionText: string;
+  isCorrect: boolean;
 };
 
 export type PreparedQuestion = {
@@ -40,6 +47,7 @@ export type QuizResult = {
   maximumPoints: number;
   totalPoints: number;
   completedAt: string;
+  answerResults: QuizAnswerResult[];
 };
 
 export type ScanApiError = {

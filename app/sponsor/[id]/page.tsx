@@ -15,6 +15,7 @@ import { useUserScans } from "@/features/scans/hooks/use-user-scans";
 import type {
   PreparedQuiz,
   QrPayload,
+  QuizAnswerResult,
   QuizResult,
 } from "@/features/scans/types";
 import { useSponsorDetails } from "@/features/sponsors/hooks/use-sponsor-details";
@@ -52,6 +53,7 @@ export default function RoomChallengePage() {
   const { item: room, loading: roomLoading, error: roomError } =
     useSponsorDetails(roomId);
   const {
+    items: completedScans,
     scannedSponsorIds,
     loading: scansLoading,
     error: scansError,
@@ -68,6 +70,7 @@ export default function RoomChallengePage() {
   const handlingRef = useRef(false);
 
   const isCompleted = scannedSponsorIds.has(roomId);
+  const completedScan = completedScans.find((scan) => scan.sponsorId === roomId);
   const canStartScanner =
     !roomLoading &&
     !scansLoading &&
@@ -218,11 +221,12 @@ export default function RoomChallengePage() {
         ) : null}
 
         {result ? (
-          <div className="flex min-h-[24rem] flex-col items-center justify-center gap-5 text-center">
+          <div className="flex min-h-[24rem] flex-col items-center gap-5 pb-4 text-center">
             <Image src="/check.png" alt="Completed" width={72} height={72} />
             <p className="text-2xl font-extrabold">
               You earned {result.pointsEarned} {result.pointsEarned === 1 ? "point" : "points"} out of {result.maximumPoints} possible.
             </p>
+            <QuizAnswerResults results={result.answerResults} />
             <Link
               href="/welcome"
               className="rounded-[0.55rem] bg-[#ff5b00] px-6 py-3 font-bold text-white"
@@ -235,6 +239,7 @@ export default function RoomChallengePage() {
             name={room.name}
             description={room.description}
             imageUrl={room.imageUrl}
+            answerResults={completedScan?.answerResults ?? []}
           />
         ) : preparedQuiz ? (
           <form onSubmit={submitAnswers} className="flex flex-col gap-5">
@@ -298,10 +303,12 @@ function RoomExplanation({
   name,
   description,
   imageUrl,
+  answerResults,
 }: {
   name: string;
   description: string;
   imageUrl: string;
+  answerResults: QuizAnswerResult[];
 }) {
   return (
     <div className="text-sm leading-6 text-white/95">
@@ -321,6 +328,40 @@ function RoomExplanation({
       <div className="clear-both mt-6 rounded-xl border border-white/15 bg-white/5 p-4 text-center font-bold">
         Your answers have already been submitted.
       </div>
+      <QuizAnswerResults results={answerResults} />
+    </div>
+  );
+}
+
+function QuizAnswerResults({ results }: { results: QuizAnswerResult[] }) {
+  if (results.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="w-full space-y-3 text-left">
+      <h2 className="text-lg font-extrabold">Question results</h2>
+      {results.map((answer, index) => (
+        <div
+          key={answer.questionId}
+          className={`rounded-xl border p-4 ${
+            answer.isCorrect
+              ? "border-emerald-300/35 bg-emerald-950/25"
+              : "border-red-300/35 bg-red-950/25"
+          }`}
+        >
+          <p className="text-sm leading-6">
+            {index + 1}. {answer.questionText}
+          </p>
+          <p
+            className={`mt-2 text-sm font-extrabold ${
+              answer.isCorrect ? "text-emerald-300" : "text-[#ff9d9d]"
+            }`}
+          >
+            {answer.isCorrect ? "✓ Correct" : "✕ Incorrect"}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

@@ -45,8 +45,6 @@ export type MessageKey =
   | "auth.register.fullName"
   | "auth.register.linkedInOptional"
   | "auth.register.register"
-  | "auth.register.agree"
-  | "auth.register.terms"
   | "welcome.title"
   | "leaderboard.title"
   | "common.emptyList"
@@ -155,8 +153,6 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.register.fullName": "Nombre completo",
     "auth.register.linkedInOptional": "LinkedIn (opcional)",
     "auth.register.register": "Registrarse",
-    "auth.register.agree": "Acepto los",
-    "auth.register.terms": "términos y condiciones",
     "welcome.title": "Espacios",
     "leaderboard.title": "Clasificación",
     "common.emptyList": "Lista vacía",
@@ -288,8 +284,6 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "auth.register.fullName": "Full name",
     "auth.register.linkedInOptional": "LinkedIn (optional)",
     "auth.register.register": "Register",
-    "auth.register.agree": "Agree the",
-    "auth.register.terms": "terms and conditions",
     "welcome.title": "Rooms",
     "leaderboard.title": "Leaderboard",
     "common.emptyList": "Empty list",
