@@ -25,7 +25,7 @@ export default function RafflePage() {
   }
 
   return (
-    <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
+    <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
       <h1 className="shrink-0 py-1 text-left text-3xl font-extrabold tracking-tight">
         How it works
       </h1>

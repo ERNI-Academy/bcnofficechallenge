@@ -98,7 +98,7 @@ export default function LeaderboardPage() {
 
   if (entries.length === 0) {
     return (
-      <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
+      <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
         <h1 className="sticky top-0 z-10 shrink-0 bg-[#033470] py-1 text-left text-4xl font-extrabold tracking-tight">
           {t("leaderboard.title")}
         </h1>
@@ -110,7 +110,7 @@ export default function LeaderboardPage() {
   }
 
   return (
-    <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
+    <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
       <h1 className="sticky top-0 z-10 shrink-0 bg-[#033470] py-1 text-left text-4xl font-extrabold tracking-tight">
         {t("leaderboard.title")}
       </h1>

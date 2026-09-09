@@ -5,6 +5,7 @@ import { AuthRouteGuard } from "@/features/auth/components/auth-route-guard";
 import { I18nProvider } from "@/features/i18n/i18n-context";
 import { AppFooter } from "@/features/layout/components/app-footer";
 import { AppHeader } from "@/features/layout/components/app-header";
+import { CompletionBanner } from "@/features/layout/components/completion-banner";
 import { RaffleBanner } from "@/features/layout/components/raffle-banner";
 
 export const metadata: Metadata = {
@@ -27,8 +28,9 @@ export default function RootLayout({
           <AuthSessionProvider>
             <AppHeader />
             <RaffleBanner />
+            <CompletionBanner />
             <AuthRouteGuard>
-              <main className="min-h-screen px-5 pb-[6.2rem] pt-[8.6rem]">
+              <main className="min-h-screen px-5 pb-[6.2rem] pt-[var(--app-content-top)]">
                 {children}
               </main>
             </AuthRouteGuard>

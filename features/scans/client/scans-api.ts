@@ -1,3 +1,4 @@
+import { USER_SCANS_UPDATED_EVENT } from "@/features/scans/client/scans-events";
 import type {
   CompleteQuizPayload,
   PreparedQuiz,
@@ -58,6 +59,7 @@ export async function completeQuiz(
     throw new Error(await readError(response, "Could not submit the answers"));
   }
   const result = (await response.json()) as QuizResult;
+  window.dispatchEvent(new Event(USER_SCANS_UPDATED_EVENT));
   return {
     ...result,
     answerResults: result.answerResults ?? [],

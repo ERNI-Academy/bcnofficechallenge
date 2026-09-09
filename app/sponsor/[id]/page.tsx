@@ -201,7 +201,7 @@ export default function RoomChallengePage() {
   const resolvedError = roomError ?? scansError ?? error;
 
   return (
-    <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
+    <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
       <Link
         href="/welcome"
         className="mb-1 mt-1 inline-flex w-fit items-center gap-2 text-sm font-semibold text-white/90"
@@ -391,7 +391,7 @@ function QuizAnswerResults({ results }: { results: QuizAnswerResult[] }) {
 
 function StatusPage({ title, message }: { title: string; message: string }) {
   return (
-    <main className="fixed bottom-[4.2rem] left-1/2 top-[8.6rem] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col px-4">
+    <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col px-4">
       <h1 className="text-3xl font-extrabold">{title}</h1>
       <p className="mt-4 text-[#ff9d9d]">{message}</p>
     </main>

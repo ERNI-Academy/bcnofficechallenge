@@ -32,6 +32,7 @@ export type MessageKey =
   | "raffle.followUs"
   | "raffle.ended"
   | "raffle.gotIt"
+  | "raffle.challengeComplete"
   | "auth.login.userEmail"
   | "auth.login.password"
   | "auth.login.enter"
@@ -140,6 +141,8 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "raffle.followUs": "Sigue a Neoland en:",
     "raffle.ended": "El tiempo para participar ha terminado.",
     "raffle.gotIt": "Entendido",
+    "raffle.challengeComplete":
+      "¡Reto completado! ¡Suerte en el sorteo!",
     "auth.login.userEmail": "Usuario (email)",
     "auth.login.password": "Contraseña",
     "auth.login.enter": "Entrar",
@@ -271,6 +274,8 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "raffle.followUs": "Follow Neoland on:",
     "raffle.ended": "The time to participate has ended.",
     "raffle.gotIt": "Got it!",
+    "raffle.challengeComplete":
+      "Challenge complete! Good luck in the raffle!",
     "auth.login.userEmail": "User (email)",
     "auth.login.password": "Password",
     "auth.login.enter": "Enter",
