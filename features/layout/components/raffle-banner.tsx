@@ -4,15 +4,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Countdown } from "@/components/ui/countdown";
+import { useAuthSession } from "@/features/auth/client/auth-session-context";
 import { useI18n } from "@/features/i18n/i18n-context";
 import { RAFFLE_TARGET_ISO } from "@/features/raffle/constants";
+import { useUserScans } from "@/features/scans/hooks/use-user-scans";
+import { useSponsors } from "@/features/sponsors/hooks/use-sponsors";
 
 export function RaffleBanner() {
   const { t } = useI18n();
   const pathname = usePathname();
+  const { isAuthenticated } = useAuthSession();
+  const { items, loading: sponsorsLoading } = useSponsors();
+  const { scannedSponsorIds, loading: scansLoading } =
+    useUserScans(isAuthenticated);
   const shouldHide = pathname === "/" || pathname === "/sign-up";
+  const allRoomsCompleted =
+    isAuthenticated &&
+    !sponsorsLoading &&
+    !scansLoading &&
+    items.length > 0 &&
+    items.every((sponsor) => scannedSponsorIds.has(sponsor.id));
 
-  if (shouldHide) {
+  if (shouldHide || allRoomsCompleted) {
     return null;
   }
 

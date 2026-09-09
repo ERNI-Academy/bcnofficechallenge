@@ -8,12 +8,12 @@ import { markRaffleSeen } from "@/features/raffle/client/storage";
 import { RAFFLE_TARGET_ISO } from "@/features/raffle/constants";
 
 const steps = [
-  "Sign in with your @betterask.erni account.",
-  "Visit Kitchen, Toilets and the other available rooms.",
-  "Open the room card and scan the QR code on the wall panel.",
-  "Answer every True/False question and submit your answers.",
-  "Complete all the rooms and get a chance to win a prize.",
-  "The winners will be announced at the next town hall."
+  "Sign in with your @bettersask.erni account.",
+  "Check out the different checkpoints (balloons) at your own pace, today until 8 PM.",
+  "Open a checkpoint in your App and scan the QR code for each checkpoint.",
+  "Read the relevant information. Then look around and answer the question.",
+  "Complete all the checkpoints and get a chance to win a prize.",
+  "Three winners will be announced at the next October Town Hall."
 ];
 export default function RafflePage() {
   const { t } = useI18n();
@@ -53,8 +53,7 @@ export default function RafflePage() {
         </div>
 
                 <p>
-          The BCN Office Challenge is a QR quiz spread across different rooms
-          in the office.
+          Explore the new office, discover what’s changed and complete the different checkpoints around the office.
         </p>
         <ol className="mt-5 space-y-3">
           {steps.map((step, index) => (
@@ -70,7 +69,10 @@ export default function RafflePage() {
           ))}
         </ol>
         <p className="mt-5 font-bold">
-          Each room can only be completed once.
+          *No need to complete the checkpoints in any particular order.
+        </p>
+        <p className="mt-5 font-bold">
+          **Each checkpoint can only be completed once.
         </p>
       </section>
 
