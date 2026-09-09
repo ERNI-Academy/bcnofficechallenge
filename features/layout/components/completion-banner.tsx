@@ -43,11 +43,11 @@ export function CompletionBanner() {
 
   return (
     <div className="fixed inset-x-0 top-[7.7rem] z-[18] border-b border-white/15 bg-gradient-to-r from-[#ff5b00] via-[#ff7a18] to-[#ffc24d] px-3 py-2">
-      <div className="mx-auto flex h-6 w-full max-w-[30rem] items-center gap-2">
+      <div className="mx-auto flex min-h-10 w-full max-w-[30rem] items-center gap-2">
         <span aria-hidden="true" className="shrink-0 text-xl leading-none">
           🎉
         </span>
-        <p className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[0.72rem] font-extrabold leading-4 text-[#033470]">
+        <p className="min-w-0 flex-1 break-words text-center text-[clamp(0.72rem,2.8vw,0.8rem)] font-extrabold leading-4 text-[#033470]">
           {t("raffle.challengeComplete")}
         </p>
       </div>

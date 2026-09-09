@@ -5,7 +5,7 @@
 }
 
 :root[data-all-rooms-completed="true"] {
-  --app-content-top: 10.8rem;
+  --app-content-top: 12rem;
 }
 
 body {
