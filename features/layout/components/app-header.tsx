@@ -301,7 +301,7 @@ export function AppHeader() {
               >
                 {displayName}
               </p>
-              {pointsLoading ? (
+              {/* {pointsLoading ? (
                 <p className="mt-2 text-sm text-white/80">{t("header.loadingPoints")}</p>
               ) : pointsError ? (
                 <p className="mt-2 text-sm text-[#ff9b9b]">{pointsError}</p>
@@ -309,7 +309,7 @@ export function AppHeader() {
                 <p className="mt-2 text-2xl font-extrabold leading-tight text-white">
                   {points ?? 0} {t("header.pointsUnit")}
                 </p>
-              )}
+              )} */}
             </section>
           </aside>
         </div>

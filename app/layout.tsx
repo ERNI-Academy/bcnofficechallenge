@@ -10,6 +10,9 @@ import { RaffleBanner } from "@/features/layout/components/raffle-banner";
 export const metadata: Metadata = {
   title: "BCN Office Challenge",
   description: "QR challenge across the BCN office",
+  other: {
+    google: "notranslate",
+  },
 };
 
 export default function RootLayout({
@@ -18,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" translate="no" className="notranslate">
       <body className="min-h-screen bg-[#031d3b] text-[#f5f7fa]">
         <I18nProvider>
           <AuthSessionProvider>
