@@ -280,7 +280,7 @@ export function AppHeader() {
             </nav>
 
             <section className="mt-auto pt-6 text-left">
-              <button
+              {/*<button
                 type="button"
                 onClick={() => goTo("/raffle")}
                 className="mb-5 flex items-center gap-2 text-left"
@@ -295,7 +295,7 @@ export function AppHeader() {
                 <span className="underline underline-offset-4">
                   {t("header.howItWorks")}
                 </span>
-              </button>
+              </button>*/}
               <p
                 className={`truncate whitespace-nowrap font-extrabold leading-tight text-white ${nameSizeClass}`}
               >
