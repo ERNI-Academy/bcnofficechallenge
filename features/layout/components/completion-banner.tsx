@@ -42,8 +42,8 @@ export function CompletionBanner() {
   }
 
   return (
-    <div className="fixed inset-x-0 top-[7.7rem] z-[18] border-b border-white/15 bg-gradient-to-r from-[#ff5b00] via-[#ff7a18] to-[#ffc24d] px-3 py-2">
-      <div className="mx-auto flex min-h-10 w-full max-w-[30rem] items-center gap-2">
+    <div className="fixed inset-x-0 top-[5.2rem] z-[18] border-b border-white/15 bg-gradient-to-r from-[#ff5b00] via-[#ff7a18] to-[#ffc24d] px-3 py-2">
+      <div className="mx-auto flex min-h-6 w-full max-w-[30rem] items-center gap-2">
         <span aria-hidden="true" className="shrink-0 text-xl leading-none">
           🎉
         </span>
