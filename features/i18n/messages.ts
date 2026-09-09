@@ -33,6 +33,8 @@ export type MessageKey =
   | "raffle.ended"
   | "raffle.gotIt"
   | "raffle.challengeComplete"
+  | "curiosity.title"
+  | "curiosity.button"
   | "auth.login.userEmail"
   | "auth.login.password"
   | "auth.login.enter"
@@ -143,6 +145,8 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "raffle.gotIt": "Entendido",
     "raffle.challengeComplete":
       "¡Reto completado! ¡Suerte en el sorteo!",
+    "curiosity.title": "¿Sabías que...?",
+    "curiosity.button": "That's amazing!",
     "auth.login.userEmail": "Usuario (email)",
     "auth.login.password": "Contraseña",
     "auth.login.enter": "Entrar",
@@ -276,6 +280,8 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "raffle.gotIt": "Got it!",
     "raffle.challengeComplete":
       "Challenge complete! Good luck in the raffle!",
+    "curiosity.title": "Did you know...?",
+    "curiosity.button": "That's amazing!",
     "auth.login.userEmail": "User (email)",
     "auth.login.password": "Password",
     "auth.login.enter": "Enter",

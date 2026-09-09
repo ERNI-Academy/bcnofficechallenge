@@ -23,6 +23,7 @@ function normalizeSponsorPayload(raw: unknown): Sponsor {
       description: "",
       url: "",
       imageUrl: "",
+      curiosity: null,
     };
   }
   const r = raw as RawSponsor;
@@ -32,6 +33,7 @@ function normalizeSponsorPayload(raw: unknown): Sponsor {
     description: readString(r, "description", "Description"),
     url: readString(r, "url", "URL"),
     imageUrl: readString(r, "imageUrl", "ImageUrl"),
+    curiosity: readString(r, "curiosity", "Curiosity") || null,
   };
 }
 

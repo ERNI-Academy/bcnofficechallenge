@@ -4,6 +4,7 @@ export type Sponsor = {
   description: string;
   url: string;
   imageUrl: string;
+  curiosity: string | null;
 };
 
 export type SponsorApiError = {
