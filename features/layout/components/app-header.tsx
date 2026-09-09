@@ -256,13 +256,13 @@ export function AppHeader() {
               >
                 {t("header.sponsors")}
               </button>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => goTo("/leaderboard")}
                 className="text-left underline underline-offset-4"
               >
                 {t("header.leaderboard")}
-              </button>
+              </button> */}
               <button
                 type="button"
                 onClick={() => goTo("/raffle")}

@@ -240,7 +240,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "header.howItWorks": "How does it work?",
     "header.sponsors": "Rooms",
     "header.leaderboard": "Leaderboard",
-    "header.raffleConditions": "Raffle conditions",
+    "header.raffleConditions": "How it works",
     "header.logout": "Logout",
     "header.pointsUnit": "points",
     "header.userDefault": "User",
@@ -264,7 +264,7 @@ export const messages: Record<AppLanguage, Record<MessageKey, string>> = {
     "footer.poweredBy": "Powered by:",
     "footer.knowMore": "Find your new challenge",
     "raffle.moreInfo": "More info",
-    "raffle.timeLeftToWin": "Time left to win:",
+    "raffle.timeLeftToWin": "Time left to play:",
     "raffle.hurryUp": "Hurry up! only this much left:",
     "raffle.description":
       "Just by visiting our sponsors' stands at the Conference, you can enter the raffle for a 100% free Neoland Master's Online program.",

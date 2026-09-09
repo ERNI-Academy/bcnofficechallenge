@@ -12,7 +12,8 @@ const steps = [
   "Visit Kitchen, Toilets and the other available rooms.",
   "Open the room card and scan the QR code on the wall panel.",
   "Answer every True/False question and submit your answers.",
-  "Earn points for correct answers and climb the leaderboard.",
+  "Complete all the rooms and get a chance to win a prize.",
+  "The winners will be announced at the next town hall."
 ];
 export default function RafflePage() {
   const { t } = useI18n();
@@ -69,8 +70,7 @@ export default function RafflePage() {
           ))}
         </ol>
         <p className="mt-5 font-bold">
-          Each room can only be completed once. Correct answers and their
-          scores are checked exclusively by the backend.
+          Each room can only be completed once.
         </p>
       </section>
 
