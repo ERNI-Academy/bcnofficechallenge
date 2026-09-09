@@ -242,45 +242,52 @@ export default function RoomChallengePage() {
             answerResults={completedScan?.answerResults ?? []}
           />
         ) : preparedQuiz ? (
-          <form onSubmit={submitAnswers} className="flex flex-col gap-5">
-            {preparedQuiz.questions.map((question, index) => (
-              <fieldset
-                key={question.id}
-                className="rounded-xl border border-white/15 bg-white/5 p-4"
+          <div className="flex flex-col gap-5">
+            <RoomDescription
+              name={room.name}
+              description={room.description}
+              imageUrl={room.imageUrl}
+            />
+            <form onSubmit={submitAnswers} className="flex flex-col gap-5">
+              {preparedQuiz.questions.map((question, index) => (
+                <fieldset
+                  key={question.id}
+                  className="rounded-xl border border-white/15 bg-white/5 p-4"
+                >
+                  <legend className="px-1 text-base font-bold">
+                    {index + 1}. {question.text}
+                  </legend>
+                  <div className="mt-3 flex gap-5">
+                    {[true, false].map((value) => (
+                      <label key={String(value)} className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name={`question-${question.id}`}
+                          value={String(value)}
+                          checked={answers[question.id] === value}
+                          onChange={() =>
+                            setAnswers((current) => ({
+                              ...current,
+                              [question.id]: value,
+                            }))
+                          }
+                          className="h-5 w-5 accent-[#ff5b00]"
+                        />
+                        <span>{value ? "True" : "False"}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
+              <button
+                type="submit"
+                disabled={!allAnswered || processing}
+                className="relative h-12 rounded-[0.55rem] bg-[#ff5b00] text-base font-bold text-white disabled:opacity-45"
               >
-                <legend className="px-1 text-base font-bold">
-                  {index + 1}. {question.text}
-                </legend>
-                <div className="mt-3 flex gap-5">
-                  {[true, false].map((value) => (
-                    <label key={String(value)} className="flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name={`question-${question.id}`}
-                        value={String(value)}
-                        checked={answers[question.id] === value}
-                        onChange={() =>
-                          setAnswers((current) => ({
-                            ...current,
-                            [question.id]: value,
-                          }))
-                        }
-                        className="h-5 w-5 accent-[#ff5b00]"
-                      />
-                      <span>{value ? "True" : "False"}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-            ))}
-            <button
-              type="submit"
-              disabled={!allAnswered || processing}
-              className="relative h-12 rounded-[0.55rem] bg-[#ff5b00] text-base font-bold text-white disabled:opacity-45"
-            >
-              {processing ? <Spinner /> : "Submit"}
-            </button>
-          </form>
+                {processing ? <Spinner /> : "Submit"}
+              </button>
+            </form>
+          </div>
         ) : (
           <div className="flex min-h-[25rem] flex-col items-center justify-center gap-4">
             <p className="text-center text-xl font-extrabold">Scan the QR code</p>
@@ -312,6 +319,26 @@ function RoomExplanation({
 }) {
   return (
     <div className="text-sm leading-6 text-white/95">
+      <RoomDescription name={name} description={description} imageUrl={imageUrl} />
+      <div className="clear-both mt-6 rounded-xl border border-white/15 bg-white/5 p-4 text-center font-bold">
+        Your answers have already been submitted.
+      </div>
+      <QuizAnswerResults results={answerResults} />
+    </div>
+  );
+}
+
+function RoomDescription({
+  name,
+  description,
+  imageUrl,
+}: {
+  name: string;
+  description: string;
+  imageUrl: string;
+}) {
+  return (
+    <div className="overflow-hidden text-sm leading-6 text-white/95">
       {imageUrl ? (
         <div className="float-left mb-3 mr-4 flex aspect-square w-1/3 min-w-[96px] max-w-[150px] items-center justify-center rounded-xl bg-white p-3">
           <Image
@@ -325,10 +352,6 @@ function RoomExplanation({
         </div>
       ) : null}
       <p className="whitespace-pre-wrap">{description}</p>
-      <div className="clear-both mt-6 rounded-xl border border-white/15 bg-white/5 p-4 text-center font-bold">
-        Your answers have already been submitted.
-      </div>
-      <QuizAnswerResults results={answerResults} />
     </div>
   );
 }
