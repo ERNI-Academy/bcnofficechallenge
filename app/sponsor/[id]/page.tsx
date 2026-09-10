@@ -62,7 +62,7 @@ export default function RoomChallengePage() {
 
   const [preparedQuiz, setPreparedQuiz] = useState<PreparedQuiz | null>(null);
   const [qrPayload, setQrPayload] = useState<QrPayload | null>(null);
-  const [answers, setAnswers] = useState<Record<string, boolean>>({});
+  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
@@ -115,7 +115,7 @@ export default function RoomChallengePage() {
         await stopScanner();
         setQrPayload(parsed);
         setPreparedQuiz(quiz);
-        setAnswers({});
+        setSelectedOptionIds([]);
       } catch (scanError) {
         setError(
           scanError instanceof Error
@@ -151,10 +151,8 @@ export default function RoomChallengePage() {
   }, [canStartScanner, refreshScans, roomId]);
 
   const allAnswered = useMemo(
-    () =>
-      preparedQuiz !== null &&
-      preparedQuiz.questions.every((question) => question.id in answers),
-    [answers, preparedQuiz],
+    () => preparedQuiz !== null && selectedOptionIds.length > 0,
+    [preparedQuiz, selectedOptionIds],
   );
 
   async function submitAnswers(event: FormEvent<HTMLFormElement>) {
@@ -167,10 +165,8 @@ export default function RoomChallengePage() {
       const completed = await completeQuiz({
         roomId,
         qr: qrPayload,
-        answers: preparedQuiz.questions.map((question) => ({
-          questionId: question.id,
-          answer: answers[question.id],
-        })),
+        questionId: preparedQuiz.question.id,
+        selectedOptionIds,
       });
       setResult(completed);
       await refreshScans();
@@ -249,36 +245,35 @@ export default function RoomChallengePage() {
               imageUrl={room.imageUrl}
             />
             <form onSubmit={submitAnswers} className="flex flex-col gap-5">
-              {preparedQuiz.questions.map((question, index) => (
-                <fieldset
-                  key={question.id}
-                  className="rounded-xl border border-white/15 bg-white/5 p-4"
-                >
-                  <legend className="px-1 text-base font-bold">
-                    {index + 1}. {question.text}
-                  </legend>
-                  <div className="mt-3 flex gap-5">
-                    {[true, false].map((value) => (
-                      <label key={String(value)} className="flex items-center gap-2">
+              <fieldset className="rounded-xl border border-white/15 bg-white/5 p-4">
+                <legend className="px-1 text-base font-bold">
+                  {preparedQuiz.question.text}
+                </legend>
+                <div className="mt-3 flex flex-col gap-3">
+                  {preparedQuiz.question.options.map((option) => {
+                    const isSelected = selectedOptionIds.includes(option.id);
+                    return (
+                      <label key={option.id} className="flex items-center gap-2">
                         <input
-                          type="radio"
-                          name={`question-${question.id}`}
-                          value={String(value)}
-                          checked={answers[question.id] === value}
+                          type="checkbox"
+                          name={`option-${option.id}`}
+                          value={option.id}
+                          checked={isSelected}
                           onChange={() =>
-                            setAnswers((current) => ({
-                              ...current,
-                              [question.id]: value,
-                            }))
+                            setSelectedOptionIds((current) =>
+                              isSelected
+                                ? current.filter((id) => id !== option.id)
+                                : [...current, option.id],
+                            )
                           }
                           className="h-5 w-5 accent-[#ff5b00]"
                         />
-                        <span>{value ? "True" : "False"}</span>
+                        <span>{option.text}</span>
                       </label>
-                    ))}
-                  </div>
-                </fieldset>
-              ))}
+                    );
+                  })}
+                </div>
+              </fieldset>
               <button
                 type="submit"
                 disabled={!allAnswered || processing}

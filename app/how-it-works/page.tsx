@@ -10,7 +10,7 @@ const steps = [
   "Sign in with your @betterask.erni account.",
   "Visit Kitchen, Toilets and the other available rooms.",
   "Open the room card and scan the QR code on the wall panel.",
-  "Answer every True/False question and submit your answers.",
+  "Answer the question by selecting one or more options, then submit your answer.",
   "Earn points for correct answers and climb the leaderboard.",
 ];
 

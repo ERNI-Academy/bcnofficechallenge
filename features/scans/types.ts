@@ -20,12 +20,18 @@ export type QuizAnswerResult = {
 export type PreparedQuestion = {
   id: string;
   text: string;
+  options: PreparedOption[];
+};
+
+export type PreparedOption = {
+  id: string;
+  text: string;
 };
 
 export type PreparedQuiz = {
   roomId: string;
   roomName: string;
-  questions: PreparedQuestion[];
+  question: PreparedQuestion;
 };
 
 export type PrepareQuizPayload = {
@@ -33,13 +39,9 @@ export type PrepareQuizPayload = {
   qr: QrPayload;
 };
 
-export type QuizAnswer = {
-  questionId: string;
-  answer: boolean;
-};
-
 export type CompleteQuizPayload = PrepareQuizPayload & {
-  answers: QuizAnswer[];
+  questionId: string;
+  selectedOptionIds: string[];
 };
 
 export type QuizResult = {
