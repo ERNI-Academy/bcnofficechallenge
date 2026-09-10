@@ -3,10 +3,20 @@ import type {
   CompleteQuizPayload,
   PreparedQuiz,
   PrepareQuizPayload,
+  QuizAnswerResult,
   QuizResult,
   ScanApiError,
   ScanRecord,
 } from "@/features/scans/types";
+
+function normalizeAnswerResults(
+  results: QuizAnswerResult[] | undefined,
+): QuizAnswerResult[] {
+  return (results ?? []).map((answer) => ({
+    ...answer,
+    correctOptionTexts: answer.correctOptionTexts ?? [],
+  }));
+}
 
 async function readError(response: Response, fallback: string) {
   try {
@@ -29,7 +39,7 @@ export async function getUserScans(): Promise<ScanRecord[]> {
   const scans = (await response.json()) as ScanRecord[];
   return scans.map((scan) => ({
     ...scan,
-    answerResults: scan.answerResults ?? [],
+    answerResults: normalizeAnswerResults(scan.answerResults),
   }));
 }
 
@@ -62,6 +72,6 @@ export async function completeQuiz(
   window.dispatchEvent(new Event(USER_SCANS_UPDATED_EVENT));
   return {
     ...result,
-    answerResults: result.answerResults ?? [],
+    answerResults: normalizeAnswerResults(result.answerResults),
   };
 }

@@ -15,6 +15,7 @@ export type QuizAnswerResult = {
   questionId: string;
   questionText: string;
   isCorrect: boolean;
+  correctOptionTexts: string[];
 };
 
 export type PreparedQuestion = {

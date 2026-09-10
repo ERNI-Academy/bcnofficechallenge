@@ -378,6 +378,22 @@ function QuizAnswerResults({ results }: { results: QuizAnswerResult[] }) {
           >
             {answer.isCorrect ? "✓ Correct" : "✕ Incorrect"}
           </p>
+          {!answer.isCorrect && answer.correctOptionTexts.length > 0 ? (
+            <div className="mt-3 text-sm leading-6">
+              <p className="font-bold">
+                {answer.correctOptionTexts.length === 1
+                  ? "The correct answer was:"
+                  : "The correct answers were:"}
+              </p>
+              <ul className="mt-1 list-disc space-y-1 pl-5">
+                {answer.correctOptionTexts.map((optionText, optionIndex) => (
+                  <li key={`${answer.questionId}-${optionIndex}`}>
+                    {optionText}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       ))}
     </div>
