@@ -130,6 +130,12 @@ export default function WelcomePage() {
                 </span>
               )}
             </div>
+            {/* <p
+              className="mt-3 w-full min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-center text-sm font-semibold text-white"
+              title={sponsor.name}
+            >
+              {sponsor.name}
+            </p> */}
           </button>
         ))}
       </section>
