@@ -97,7 +97,7 @@ export default function WelcomePage() {
         {t("welcome.title")}
       </h1>
       <section className="mt-3 grid min-h-0 flex-1 content-start grid-cols-2 gap-3 overflow-y-auto pb-2 pr-1">
-        {items.map((sponsor) => (
+        {items.map((sponsor, id) => (
           <button
             key={sponsor.id}
             type="button"
@@ -126,16 +126,10 @@ export default function WelcomePage() {
                 />
               ) : (
                 <span className="text-5xl font-black text-[#033470]">
-                  {sponsor.name.slice(0, 1).toUpperCase()}
+                  {id}
                 </span>
               )}
             </div>
-            <p
-              className="mt-3 w-full min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-center text-sm font-semibold text-white"
-              title={sponsor.name}
-            >
-              {sponsor.name}
-            </p>
           </button>
         ))}
       </section>
