@@ -18,6 +18,7 @@ import type {
   QuizAnswerResult,
   QuizResult,
 } from "@/features/scans/types";
+import { useSponsors } from "@/features/sponsors/hooks/use-sponsors";
 import { useSponsorDetails } from "@/features/sponsors/hooks/use-sponsor-details";
 
 const SCANNER_ELEMENT_ID = "room-qr-reader";
@@ -50,6 +51,11 @@ export default function RoomChallengePage() {
   const params = useParams<{ id: string }>();
   const roomId = params.id;
   const { isAuthenticated } = useAuthSession();
+  const {
+    items: sponsors,
+    loading: sponsorsLoading,
+    error: sponsorsError,
+  } = useSponsors();
   const { item: room, loading: roomLoading, error: roomError } =
     useSponsorDetails(roomId);
   const {
@@ -182,7 +188,7 @@ export default function RoomChallengePage() {
     }
   }
 
-  if (roomLoading || scansLoading) {
+  if (roomLoading || sponsorsLoading || scansLoading) {
     return (
       <main className="flex min-h-[calc(100vh-13.8rem)] items-center justify-center">
         <Spinner className="h-10 w-10 border-[3px]" />
@@ -194,7 +200,13 @@ export default function RoomChallengePage() {
     return <StatusPage title="Room" message={roomError ?? "Room not found."} />;
   }
 
-  const resolvedError = roomError ?? scansError ?? error;
+  const sponsorIndex = sponsors.findIndex((sponsor) => sponsor.id === roomId);
+  const roomTitle = isCompleted
+    ? room.name
+    : sponsorIndex >= 0
+      ? String(sponsorIndex)
+      : "Room";
+  const resolvedError = roomError ?? sponsorsError ?? scansError ?? error;
 
   return (
     <main className="fixed bottom-[4.2rem] left-1/2 top-[var(--app-content-top)] z-10 flex w-full max-w-[30rem] -translate-x-1/2 flex-col overflow-hidden px-4">
@@ -206,7 +218,7 @@ export default function RoomChallengePage() {
         <span>Go back</span>
       </Link>
       <h1 className="shrink-0 py-1 text-left text-3xl font-extrabold tracking-tight">
-        {room.name}
+        {roomTitle}
       </h1>
 
       <section className="mt-3 min-h-0 flex-1 overflow-y-auto pb-4 pr-1">

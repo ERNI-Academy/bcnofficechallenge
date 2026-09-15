@@ -166,7 +166,7 @@ export default function WelcomePage() {
           </p>
           <button
             type="button"
-            onClick={() => continueToRoom(id)}
+            onClick={continueToRoom}
             className="mt-6 h-12 w-full rounded-[0.55rem] border-none bg-[#ff5b00] text-base font-bold text-white"
           >
             {t("curiosity.button")}
