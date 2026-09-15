@@ -124,18 +124,20 @@ export default function WelcomePage() {
                   unoptimized
                   className="max-h-full max-w-full object-contain"
                 />
-              ) : (
+              ) : scannedSponsorIds.has(sponsor.id) ?(
                 <span className="text-5xl font-black text-[#033470]">
                   {id}
                 </span>
-              )}
+              ): (<span className="text-5xl font-black text-[#033470]">
+                  {id}
+                </span>)}
             </div>
-            {/* <p
+            {scannedSponsorIds.has(sponsor.id) ?<p
               className="mt-3 w-full min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-center text-sm font-semibold text-white"
               title={sponsor.name}
             >
               {sponsor.name}
-            </p> */}
+            </p> : null}
           </button>
         ))}
       </section>
@@ -164,7 +166,7 @@ export default function WelcomePage() {
           </p>
           <button
             type="button"
-            onClick={continueToRoom}
+            onClick={() => continueToRoom(id)}
             className="mt-6 h-12 w-full rounded-[0.55rem] border-none bg-[#ff5b00] text-base font-bold text-white"
           >
             {t("curiosity.button")}
